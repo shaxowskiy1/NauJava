@@ -2,6 +2,7 @@ package Task3;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
@@ -34,14 +35,19 @@ public class Task3 {
 
         Stream.of(
 
-                new Employee("Иван Иванов", 30, "Инженерия", 60000),
-                new Employee("Мария Петрова", 28, "Маркетинг", 55000),
-                new Employee("Сергей Смирнов", 35, "Разработка", 75000),
+                new Employee("Иван Иванов", 30, "IT", 60000),
+                new Employee("Мария Петрова", 28, "HR", 55000),
+                new Employee("Сергей Смирнов", 35, "IT", 75000),
                 new Employee("Алена Сидорова", 25, "HR", 48000),
-                new Employee("Дмитрий Федоров", 40, "Финансы", 80000)
+                new Employee("Дмитрий Федоров", 40, "IT", 80000),
+                new Employee("Макар Макаров", 30, "HR", 100000)
     ).forEach(employees::add);
 
-    Double ave = employees.stream()
+        System.out.print("Введите департамент в котором хотите посчитать среднюю зарплату(HR или IT), если 0 - такого департамента нет: ");
+        String department = new Scanner(System.in).nextLine();
+
+        Double ave = employees.stream()
+            .filter(emp -> department.equals(emp.getDepartment()))
             .mapToDouble(Employee::getSalary)
             .average()
             .orElse(0);
