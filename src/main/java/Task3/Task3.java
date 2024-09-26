@@ -2,6 +2,9 @@ package Task3;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 /**
  * Необходимо обработать список с использованием Stream API.
@@ -29,19 +32,22 @@ public class Task3 {
     public static void main(String[] args) {
         ArrayList<Employee> employees = new ArrayList<>();
 
-        Employee em1 = new Employee("Иван Иванов", 30, "Инженерия", 60000);
-        Employee em2 = new Employee("Мария Петрова", 28, "Маркетинг", 55000);
-        Employee em3 = new Employee("Сергей Смирнов", 35, "Разработка", 75000);
-        Employee em4 = new Employee("Алена Сидорова", 25, "HR", 48000);
-        Employee em5 = new Employee("Дмитрий Федоров", 40, "Финансы", 80000);
+        Stream.of(
 
-        Collections.addAll(employees, em1, em2, em3, em4, em5);
+                new Employee("Иван Иванов", 30, "Инженерия", 60000),
+                new Employee("Мария Петрова", 28, "Маркетинг", 55000),
+                new Employee("Сергей Смирнов", 35, "Разработка", 75000),
+                new Employee("Алена Сидорова", 25, "HR", 48000),
+                new Employee("Дмитрий Федоров", 40, "Финансы", 80000)
+    ).forEach(employees::add);
 
-    Double sum = employees.stream()
+    Double ave = employees.stream()
             .mapToDouble(Employee::getSalary)
-            .reduce(0.0, Double::sum);
+            .average()
+            .orElse(0);
 
-        System.out.println(sum);
+        System.out.println(ave);
+
     }
 
 
